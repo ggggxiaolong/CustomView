@@ -11,7 +11,7 @@ import android.view.View;
 
 public final class CustomView extends View {
 
-    private int width,height;
+    private int width;
 
     private DrawHelper.DrawInterface mDrawInterface = new DrawHelper.DrawPoint();
 
@@ -35,8 +35,7 @@ public final class CustomView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        width = w; height = h;
-
+        width = w;
     }
 
     @Override
