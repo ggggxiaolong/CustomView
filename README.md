@@ -2,6 +2,7 @@
 一步步开始自定义View
 ### 第一步
 从最基本的画点，线，矩形，圆角矩形，椭圆，圆，圆环，弧开始练习。最后画一个简单的饼图。
+![线](http://oajsxp5w8.bkt.clouddn.com/S60823-180935.jpg?imageView2/2/w/400) ![饼图](http://oajsxp5w8.bkt.clouddn.com/S60823-175652.jpg?imageView2/2/w/400)
 
 * 获取自定义View的宽度
 在自定义View中重写onSizeChanged方法
