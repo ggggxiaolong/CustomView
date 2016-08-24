@@ -52,3 +52,4 @@ public final class DrawHelper {
         invalidate();
     }
 ```
+###参考 [@GcsSloop](http://weibo.com/GcsSloop) 的 [安卓学习笔记](https://github.com/GcsSloop/AndroidNote) 

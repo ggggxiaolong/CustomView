@@ -1,4 +1,4 @@
-package com.github.ggggxiaolong.customview.view;
+package com.github.ggggxiaolong.customview.basic;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

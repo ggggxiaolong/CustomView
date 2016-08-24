@@ -1,76 +1,69 @@
 package com.github.ggggxiaolong.customview;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.github.ggggxiaolong.customview.view.CustomView;
-import com.github.ggggxiaolong.customview.view.DrawHelper;
+import com.github.ggggxiaolong.customview.avatar.AvatarFragment;
+import com.github.ggggxiaolong.customview.basic.BaseFragment;
+import com.github.ggggxiaolong.customview.utils.Common;
 
-public class MainActivity extends AppCompatActivity {
+import static android.text.TextUtils.isEmpty;
 
-    private CustomView mView;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    LocalBroadcastManager mBroadcastManager;
+    TitleReceiver mTitleReceiver;
+    private final String fragmentTag = "fragment";
+    private FragmentManager mFragmentManager;
+    private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mView = (CustomView) findViewById(R.id.customView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //设置toolbar与Drawer的关联
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        //设置侧滑界面menu的点击事件
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //设置fragment
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentManager.beginTransaction().add(R.id.fragment, new BaseFragment()).commit();
+
+        mBroadcastManager = LocalBroadcastManager.getInstance(this);
+        mTitleReceiver = new TitleReceiver();
+        mBroadcastManager.registerReceiver(mTitleReceiver, Common.getTitleFilter());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
-    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_arc:{
-                mView.translate(new DrawHelper.DrawArc());
-                return true;
-            }
-            case R.id.menu_point:{
-                mView.translate(new DrawHelper.DrawPoint());
-                return true;
-            }
-            case R.id.menu_pie:{
-                mView.translate(new DrawHelper.DrawPie());
-                return true;
-            }
-            case R.id.menu_circle:{
-                mView.translate(new DrawHelper.DrawCircle());
-                return true;
-            }
-            case R.id.menu_lines:{
-                mView.translate(new DrawHelper.DrawLines());
-                return true;
-            }
-            case R.id.menu_oval:{
-                mView.translate(new DrawHelper.DrawOval());
-                return true;
-            }
-            case R.id.menu_rectangle:{
-                mView.translate(new DrawHelper.DrawRect());
-                return true;
-            }
-            case R.id.menu_ring:{
-                mView.translate(new DrawHelper.DrawRing());
-                return true;
-            }
-            case R.id.menu_roundRect:{
-                mView.translate(new DrawHelper.DrawRoundRect());
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
+    protected void onDestroy() {
+        super.onDestroy();
+        mBroadcastManager.unregisterReceiver(mTitleReceiver);
     }
 
     public void showFabDialog(View view) {
@@ -87,6 +80,33 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.nav_base: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new BaseFragment()).commit();
+                break;
+            }
+            case R.id.nav_avatar: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new AvatarFragment()).commit();
+                break;
+            }
+        }
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    class TitleReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //广播响应事件时间超过10s就会ANR
+            String title = intent.getStringExtra(Common.MSG_TITLE);
+            if (!isEmpty(title)) {
+                setTitle(title);
+            }
+        }
     }
 }
 
