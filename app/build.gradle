@@ -1,8 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
+    /*signingConfigs {
+        debug {
+            storeFile file('OpenKey.jks')
+            storePassword '123456'
+            keyAlias '123456'
+            keyPassword '123456'
+        }
+        release {
+            def Properties prop = new Properties();
+            prop.load(new FileInputStream('/Users/tanxiaolong/Documents/keys/tanxl.properties'))
+            keyAlias prop.keyAlias
+            keyPassword prop.keyPassword
+            storeFile file('/Users/tanxiaolong/Documents/keys/tanxl.jks')
+            storePassword prop.storePassword
+        }
+    }*/
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.github.ggggxiaolong.customview"
         minSdkVersion 14
@@ -12,15 +28,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
         }
     }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
