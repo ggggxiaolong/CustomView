@@ -9,21 +9,24 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
 /**
  * 自定义头像
- * todo 如果图片的背景不是bitmapDrawable
- * http://blog.csdn.net/lmj623565791/article/details/43752383
+ * http://blog.csdn.net/lmj623565791/article/details/41967509
+ * https://github.com/hdodenhof/CircleImageView/blob/master/circleimageview/src/main/java/de/hdodenhof/circleimageview/CircleImageView.java
  */
 
 public final class AvatarImageView extends ImageView {
 
-    private final int mBorder = 5;
-    private int mPoint,mLastPoint;
+    private int mBorder = 5;
+    private int mPoint, mLastPoint;
     private int mRadius;
     private Paint mBitmapPaint;
     private Paint mBorderPaint;
@@ -67,12 +70,12 @@ public final class AvatarImageView extends ImageView {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         width = width < height ? width : height;
         mPoint = width / 2;
-        mRadius = mPoint -  2 * mBorder;
+        mRadius = mPoint - 2 * mBorder;
         setMeasuredDimension(width, width);
         Drawable drawable = getDrawable();
         if (drawable == null || mLastPoint == mPoint) return;
         mLastPoint = mPoint;
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        Bitmap bitmap = getBitmap(drawable);
         //计算缩放
         int min = Math.min(bitmap.getWidth(), bitmap.getHeight());
         float scale = width * 1.0f / min;
@@ -91,5 +94,44 @@ public final class AvatarImageView extends ImageView {
         canvas.drawCircle(mPoint, mPoint, mRadius, mBitmapPaint);
         canvas.drawCircle(mPoint, mPoint, mRadius, mBorderPaint);
         Log.i(TAG, "onDraw");
+    }
+
+    private Bitmap getBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bd = (BitmapDrawable) drawable;
+            return bd.getBitmap();
+        }
+
+        Bitmap bitmap;
+
+        if (drawable instanceof ColorDrawable) {
+            bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888);//最终会通过缩放实现覆盖
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("parent", super.onSaveInstanceState());
+        bundle.putInt("border", mBorder);
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            super.onRestoreInstanceState(bundle.getParcelable("parent"));
+            mBorder = bundle.getInt("border");
+            return;
+        }
+        super.onRestoreInstanceState(state);
     }
 }
