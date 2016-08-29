@@ -15,16 +15,15 @@ import android.graphics.drawable.Drawable;
  */
 public final class AvatarImageDrawable extends Drawable {
 
-    private BitmapShader mShader;
     private int mWidth;
     private Paint mPaint;
 
     public AvatarImageDrawable(Bitmap bitmap) {
-        mShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mWidth = Math.min(bitmap.getWidth(), bitmap.getHeight());
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setShader(mShader);
+        mPaint.setShader(shader);
     }
 
     @Override

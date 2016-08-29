@@ -46,4 +46,9 @@
         android:title="@string/action_pie"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/menu_bitmap"
+        android:title="@string/action_bitmap"
+        app:showAsAction="never"
+        />
 </menu>

@@ -88,6 +88,11 @@ public final class BaseFragment extends Fragment {
                 setTitle("圆角矩形");
                 return true;
             }
+            case R.id.menu_bitmap: {
+                mView.translate(new DrawHelper.DrawBitmap());
+                setTitle("图片");
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

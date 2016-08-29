@@ -27,5 +27,6 @@
     <string name="action_avatar">圆形头像</string>
     <string name="navigation_drawer_open">开启</string>
     <string name="navigation_drawer_close">关闭</string>
+    <string name="action_bitmap">图片</string>
 
 </resources>
