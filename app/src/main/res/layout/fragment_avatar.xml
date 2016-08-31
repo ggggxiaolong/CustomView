@@ -23,5 +23,10 @@
             android:layout_width="160dp"
             android:layout_height="160dp"/>
 
+        <com.github.ggggxiaolong.customview.avatar.AvatarImage2View
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/nav_header"/>
+
     </LinearLayout>
 </ScrollView>
