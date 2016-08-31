@@ -93,6 +93,11 @@ public final class BaseFragment extends Fragment {
                 setTitle("图片");
                 return true;
             }
+            case R.id.menu_path: {
+                mView.translate(new DrawHelper.DrawPath());
+                setTitle("路径");
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

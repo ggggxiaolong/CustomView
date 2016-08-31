@@ -4,8 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.CornerPathEffect;
+import android.graphics.DashPathEffect;
+import android.graphics.DiscretePathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
+import android.graphics.PathEffect;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -196,6 +202,44 @@ public final class DrawHelper {
             float scale = Math.min(mWidth * 1.0f / mBitmap.getWidth(), mHeight * 1.0f / mBitmap.getHeight());
             mMatrix = new Matrix();
             mMatrix.setScale(scale, scale);
+        }
+    }
+
+    public static class DrawPath extends DrawInterface {
+
+        private Path mPath;
+        private PathEffect[] mEffects;
+
+        @Override
+        public void draw(Canvas canvas) {
+            for (PathEffect effect : mEffects) {
+                mPaint.setPathEffect(effect);
+                canvas.drawPath(mPath, mPaint);
+                canvas.translate(0, 150);
+            }
+        }
+
+        @Override
+        public void init(int width, int height) {
+            super.init(width, height);
+            mPaint.setColor(Color.DKGRAY);
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(5);
+            mPath = new Path();
+            mPath.moveTo(0, 0);
+            int gap = width / 34;
+
+            for (int i = 1; i <= 30; i++) {
+                mPath.lineTo(i * gap, (float) (Math.random() * 100));
+            }
+            mEffects = new PathEffect[5];
+            mEffects[0] = null;
+            mEffects[1] = new CornerPathEffect(10);
+            mEffects[2] = new DiscretePathEffect(3f, 5f);
+            mEffects[3] = new DashPathEffect(new float[]{20, 10, 15, 10}, 3);
+            Path path = new Path();
+            path.addRect(0, 0, 8, 8, Path.Direction.CCW);
+            mEffects[4] = new PathDashPathEffect(path, 12, 3, PathDashPathEffect.Style.ROTATE);
         }
     }
 }
