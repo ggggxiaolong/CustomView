@@ -19,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.github.ggggxiaolong.customview.Circle.CircleFragment;
 import com.github.ggggxiaolong.customview.avatar.AvatarFragment;
 import com.github.ggggxiaolong.customview.basic.BaseFragment;
+import com.github.ggggxiaolong.customview.shader.ShaderFragment;
 import com.github.ggggxiaolong.customview.utils.Common;
 
 import static android.text.TextUtils.isEmpty;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //设置fragment
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().add(R.id.fragment, new BaseFragment()).commit();
+        mFragmentManager.beginTransaction().add(R.id.fragment, new AvatarFragment()).commit();
 
         mBroadcastManager = LocalBroadcastManager.getInstance(this);
         mTitleReceiver = new TitleReceiver();
@@ -91,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_avatar: {
                 mFragmentManager.beginTransaction().replace(R.id.fragment, new AvatarFragment()).commit();
+                break;
+            }
+            case R.id.nav_shader: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new ShaderFragment()).commit();
+                break;
+            }
+            case R.id.nav_circle: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new CircleFragment()).commit();
                 break;
             }
         }

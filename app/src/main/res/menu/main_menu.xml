@@ -51,4 +51,9 @@
         android:title="@string/action_bitmap"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/menu_path"
+        android:title="@string/action_path"
+        app:showAsAction="never"
+        />
 </menu>
