@@ -30,5 +30,6 @@
     <string name="action_bitmap">图片</string>
     <string name="action_path">路径</string>
     <string name="action_shader">Shader</string>
+    <string name="action_polyline">折线</string>
 
 </resources>

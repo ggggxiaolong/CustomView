@@ -22,6 +22,8 @@ import android.view.View;
 import com.github.ggggxiaolong.customview.Circle.CircleFragment;
 import com.github.ggggxiaolong.customview.avatar.AvatarFragment;
 import com.github.ggggxiaolong.customview.basic.BaseFragment;
+import com.github.ggggxiaolong.customview.path.PathFragment;
+import com.github.ggggxiaolong.customview.polyline.PolyLineFragment;
 import com.github.ggggxiaolong.customview.shader.ShaderFragment;
 import com.github.ggggxiaolong.customview.utils.Common;
 
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //设置fragment
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().add(R.id.fragment, new AvatarFragment()).commit();
+        mFragmentManager.beginTransaction().add(R.id.fragment, new PolyLineFragment()).commit();
 
         mBroadcastManager = LocalBroadcastManager.getInstance(this);
         mTitleReceiver = new TitleReceiver();
@@ -101,6 +103,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_circle: {
                 mFragmentManager.beginTransaction().replace(R.id.fragment, new CircleFragment()).commit();
+                break;
+            }
+            case R.id.nav_path: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new PathFragment()).commit();
+                break;
+            }
+            case R.id.nav_polyline: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, new PolyLineFragment()).commit();
                 break;
             }
         }

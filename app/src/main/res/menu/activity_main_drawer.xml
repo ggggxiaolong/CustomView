@@ -23,9 +23,13 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/action_circle"/>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_path"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
+                android:title="@string/action_path"/>
+            <item
+                android:id="@+id/nav_polyline"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/action_polyline"/>
         </menu>
     </item>
 
