@@ -25,6 +25,7 @@ import com.github.ggggxiaolong.customview.basic.BaseFragment;
 import com.github.ggggxiaolong.customview.path.PathFragment;
 import com.github.ggggxiaolong.customview.polyline.PolyLineFragment;
 import com.github.ggggxiaolong.customview.shader.ShaderFragment;
+import com.github.ggggxiaolong.customview.trapezoid.TrapezoidFragment;
 import com.github.ggggxiaolong.customview.utils.Common;
 
 import static android.text.TextUtils.isEmpty;
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.nav_polyline: {
                 mFragmentManager.beginTransaction().replace(R.id.fragment, new PolyLineFragment()).commit();
+                break;
+            }
+            case R.id.nav_trapezoid: {
+                mFragmentManager.beginTransaction().replace(R.id.fragment, TrapezoidFragment.newInstance()).commit();
                 break;
             }
         }

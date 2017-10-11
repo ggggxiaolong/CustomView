@@ -1,53 +1,54 @@
 apply plugin: 'com.android.application'
 
 android {
-    /*signingConfigs {
-        debug {
-            storeFile file('OpenKey.jks')
-            storePassword '123456'
-            keyAlias '123456'
-            keyPassword '123456'
-        }
-        release {
-            def Properties prop = new Properties();
-            prop.load(new FileInputStream('/Users/tanxiaolong/Documents/keys/tanxl.properties'))
-            keyAlias prop.keyAlias
-            keyPassword prop.keyPassword
-            storeFile file('/Users/tanxiaolong/Documents/keys/tanxl.jks')
-            storePassword prop.storePassword
-        }
-    }*/
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
-    defaultConfig {
-        applicationId "com.github.ggggxiaolong.customview"
-        minSdkVersion 19
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  /*signingConfigs {
+      debug {
+          storeFile file('OpenKey.jks')
+          storePassword '123456'
+          keyAlias '123456'
+          keyPassword '123456'
+      }
+      release {
+          def Properties prop = new Properties();
+          prop.load(new FileInputStream('/Users/tanxiaolong/Documents/keys/tanxl.properties'))
+          keyAlias prop.keyAlias
+          keyPassword prop.keyPassword
+          storeFile file('/Users/tanxiaolong/Documents/keys/tanxl.jks')
+          storePassword prop.storePassword
+      }
+  }*/
+  compileSdkVersion 26
+  buildToolsVersion '26.0.2'
+  defaultConfig {
+    applicationId "com.github.ggggxiaolong.customview"
+    minSdkVersion 23
+    targetSdkVersion 26
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    debug {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      //            signingConfig signingConfigs.debug
     }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.debug
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-        }
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      //            signingConfig signingConfigs.release
     }
-
+  }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    testCompile 'junit:junit:4.12'
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
+  implementation 'com.android.support:appcompat-v7:26.1.0'
+  implementation 'com.android.support:design:26.1.0'
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+  testCompile 'junit:junit:4.12'
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
 }

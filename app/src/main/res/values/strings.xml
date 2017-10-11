@@ -29,6 +29,7 @@
     <string name="navigation_drawer_close">关闭</string>
     <string name="action_bitmap">图片</string>
     <string name="action_path">路径</string>
+    <string name="action_trapezoid">漏斗图</string>
     <string name="action_shader">Shader</string>
     <string name="action_polyline">折线</string>
 
