@@ -99,18 +99,18 @@ public class TrapezoidView extends View {
     }
     //计算字体想对于梯形的高度
     final Paint.FontMetrics fontMetrics = mTextPaint.getFontMetrics();
-    mTextHeight = (int) (itemHeight + fontMetrics.descent - fontMetrics.ascent) / 2;
-    Log.i(TAG, "minWidth:" + minWidth);
-    Log.i(TAG, "textSize:" + textSize);
-    Log.i(TAG, "perItemWidth:" + perItemWidth);
-    Log.i(TAG, "itemHeight:" + itemHeight);
-    Log.i(TAG, "mTextX:" + mTextX);
-    Log.i(TAG, "divider:" + divider);
-    Log.i(TAG, "mTextHeight:" + mTextHeight);
+    mTextHeight = (int) (itemHeight - fontMetrics.descent - fontMetrics.ascent) / 2;
+    //Log.i(TAG, "minWidth:" + minWidth);
+    //Log.i(TAG, "textSize:" + textSize);
+    //Log.i(TAG, "perItemWidth:" + perItemWidth);
+    //Log.i(TAG, "itemHeight:" + itemHeight);
+    //Log.i(TAG, "mTextX:" + mTextX);
+    //Log.i(TAG, "divider:" + divider);
+    //Log.i(TAG, "mTextHeight:" + mTextHeight);
   }
 
   public void setItems(List<TrapezoidBean> items) {
-    Preconditions.checkNotNull(items);
+    if (items == null) throw new IllegalArgumentException("data can't be null");
     mItems = items;
     Collections.sort(mItems, TrapezoidBean.comparator());
     initData();
@@ -162,12 +162,12 @@ public class TrapezoidView extends View {
     //文字的位置
     int textY = top + mTextHeight;
 
-    Log.i(TAG, "left:" + left);
-    Log.i(TAG, "right:" + right);
-    Log.i(TAG, "top:" + top);
-    Log.i(TAG, "bottom:" + bottom);
-    Log.i(TAG, "gap:" + gap);
-    Log.i(TAG, "textY:" + textY);
+    //Log.i(TAG, "left:" + left);
+    //Log.i(TAG, "right:" + right);
+    //Log.i(TAG, "top:" + top);
+    //Log.i(TAG, "bottom:" + bottom);
+    //Log.i(TAG, "gap:" + gap);
+    //Log.i(TAG, "textY:" + textY);
     //画图形
     mPath.reset();
     mPath.moveTo(left, top);
